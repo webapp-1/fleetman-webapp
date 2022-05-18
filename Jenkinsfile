@@ -2,13 +2,9 @@ pipeline {
    agent any
 
    environment {
-     // You must set the following environment variables
-     // ORGANIZATION_NAME
-     // YOUR_DOCKERHUB_USERNAME (it doesn't matter if you don't have one)
-     
-     ORGANIZATION_NAME = "vny-org-cicd"
+ 
      SERVICE_NAME = "fleetman-webapp"
-     ECR_URI = "794077140502.dkr.ecr.us-east-2.amazonaws.com/fleetman-webapp"
+     ECR_URI = "738942673819.dkr.ecr.us-east-2.amazonaws.com/fleetman-webapp"
      REPOSITORY_TAG ="${ECR_URI}:${BUILD_ID}"
    }
 
@@ -22,7 +18,7 @@ pipeline {
 
       stage('Build and Push Image') {
          steps {
-           sh 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 794077140502.dkr.ecr.us-east-2.amazonaws.com'
+           sh 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 738942673819.dkr.ecr.us-east-2.amazonaws.com'
             
            sh 'docker image build -t ${REPOSITORY_TAG} .'
            sh 'docker push ${REPOSITORY_TAG}'
